@@ -1,0 +1,320 @@
+\documentclass[letter,11pt]{article} 
+\usepackage{graphicx,url,cite,amsmath,amsthm,amssymb,amsfonts,color}
+\usepackage{sectsty,bm}
+
+\usepackage[left=2.6cm, right=2.6cm, top=2.2cm, bottom=2.1cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+\def\amsbb{\use@mathgroup \M@U \symAMSb}
+\makeatother
+
+\usepackage{bbold}
+\usepackage{epstopdf}
+
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{etoolbox}
+\usepackage{lipsum}% just to generate text for the example
+\BeforeBeginEnvironment{equation}{\begin{singlespace}}
+\AfterEndEnvironment{equation}{\end{singlespace}\noindent\ignorespaces}
+\BeforeBeginEnvironment{align}{\begin{singlespace}}
+\AfterEndEnvironment{align}{\end{singlespace}\noindent\ignorespaces}
+
+\usepackage[linktocpage=true, colorlinks=true]{hyperref}
+\usepackage{comment}
+\usepackage{enumitem}
+
+\usepackage{titlesec} 
+%\titlespacing\subsubsection{0pt}{1.0ex plus -1ex minus -.2ex}{-\parskip}
+
+\usepackage{lscape}
+
+\newcommand{\rmd}{{\rm d}}
+\newcommand{\cD}{{\mathcal D}}
+\newcommand{\RR}{{\mathbb{R}}}
+\newcommand{\NN}{{\mathbb{N}}}
+\newcommand{\ZZ}{{\mathbb{Z}}}
+\newcommand{\bE}{{\mathbb{E}}}
+\newcommand{\PP}{{\mathbb{P}}}
+\newcommand{\cF}{{\mathcal F}}
+\newcommand{\bx}{{\bold x}}
+\newcommand{\by}{{\bold y}}
+\newcommand{\bW}{{\mathbf{W}}}
+\newcommand{\bFF}{{\bold f}}
+\newcommand{\ba}{{ a}}
+\newcommand{\br}{{\bold r}}
+\newcommand{\bp}{{\bold p}}
+\newcommand{\bv}{{\bold v}}
+\newcommand{\tr}{{\text{tr}}}
+\newcommand{\txi}{{\tilde{\bm \xi}}}
+\newcommand{\hd}{\hat{\rmd}}
+\newcommand{\bu}{{\bold u}}
+
+\DeclareSymbolFont{bbold}{U}{bbold}{m}{n}
+\DeclareSymbolFontAlphabet{\mathbbold}{bbold}
+
+\allowdisplaybreaks
+
+\usepackage{indentfirst}
+\providecommand{\keywords}[1]{\textbf{Keywords---} #1}
+\providecommand{\jel}[1]{\textbf{JEL Classification---} #1}
+
+\usepackage{caption}
+
+%\usepackage{epigraph}
+% \epigraphsize{\small}% Default
+%\setlength\epigraphwidth{8cm}
+%\setlength\epigraphrule{0pt}
+
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+\makeatother
+\newcommand{\zerodisplayskips}{%
+  \setlength{\abovedisplayskip}{0pt}
+  %\setlength{\belowdisplayskip}{0pt}
+  \setlength{\abovedisplayshortskip}{0pt}
+  %\setlength{\belowdisplayshortskip}{0pt}
+}
+\appto{\normalsize}{\zerodisplayskips}
+\appto{\small}{\zerodisplayskips}
+\appto{\footnotesize}{\zerodisplayskips}	
+
+\usepackage{titlesec}
+
+\titleformat{\section}[runin]
+  {\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}[runin]
+  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+\usepackage{parskip}
+
+
+\usepackage{pdfpages}
+
+\begin{document} 
+\oddsidemargin 0.2in \topmargin -.95in 
+\title{Problem Set 5. Macroeconomics - Computational Assignment \\
+Income Fluctuation Problem} 
+\date{\today}
+\author{Roxana Mihet}
+\maketitle
+
+\section{Approximating the Income Process - Tauchen Method}
+\hfill
+
+The income process is:
+\begin{align*}
+y_t &= exp(w_t) \\
+w_t &= \bar{w} + \rho w_{t-1} + \epsilon_t
+\end{align*}
+where $\rho = 0.97$, and $\epsilon_t \sim N(0, \sigma_{\epsilon}^2)$, where $ \sigma_{\epsilon}^2=0.06$. The income process in levels $y_t$ has always mean 1, independent of the variance. So, $y_t$ is log normal.
+
+The mean of a log-normal random variable is $exp(\mu + \frac{\sigma^2}{2})$ . Solving for $\mu$ and $\sigma^2$:
+\begin{align*}
+\bE(w) &= \bar{w} + \rho \bE(w)  \Rightarrow \ \boxed{\bE(w) = \frac{ \bar{w}}{1- \rho } = \mu} \\
+Var(w) &= var(\bar{w}) + \rho^2 var(w) + var(\epsilon_t) = 0 +  \rho^2 Var(w) + \sigma_{\epsilon}^2  \Rightarrow \boxed{Var(w)  = \frac{ \sigma_{\epsilon}^2}{1-\rho^2}}
+\end{align*} 
+\
+Now that we know the mean and the variance of the random variable $w$ we can compute:
+\begin{align*}
+& y_t = exp(w_t) = exp \left( \frac{ \bar{w}}{1- \rho } + \frac{ \sigma_{\epsilon}^2}{2(1-\rho^2)} \right) = 1 \Rightarrow \\
+& \frac{ \bar{w}}{1- \rho } + \frac{ \sigma_{\epsilon}^2}{2(1-\rho^2)}  = 0 \Rightarrow \\
+&\frac{ \bar{w}}{1- \rho } = \frac{- \sigma_{\epsilon}^2}{2(1-\rho)(1+\rho)}  \Rightarrow \ \boxed{\bar{w}  = \frac{- \sigma_{\epsilon}^2}{2 (1+\rho)}}
+\end{align*}
+\
+We can now approximate the AR(1) process of $w_t$ with a Markov chain using the Tauchen method. We can assume that the extreme values of the grid (notice that the grid is symmetric) are:
+\begin{align*}
+& w_1 = -2 \sigma_w + \mu(w) = \mu(w) -3 \sqrt{\frac{- \sigma_{\epsilon}^2}{2 (1+\rho)}} \\
+& w_N = \mu(w) + 3 \sqrt{\frac{- \sigma_{\epsilon}^2}{2 (1+\rho)}}
+\end{align*}
+We can compute the transition probabilities $\pi_{jk}=Pr(w_t = k | w_{t-1} = j)$ by approximating the AR(1) variable to the closest grid point. Then
+\begin{align*}
+\pi_{j1}	&= P \left( \bar{w} + \rho w_j + \epsilon_t < w_1 + \frac{d}{2} \right) \\
+			&= P \left(\epsilon_t < w_1 + \frac{d}{2} - \bar{w} - \rho w_j   \right) \\
+			&= F \left(  w_1 + \frac{d}{2} - \bar{w} - \rho w_j  \right) \\ \\
+\pi_{jn}	&= P \left( \bar{w} + \rho w_j + \epsilon_t > w_1 - \frac{d}{2} \right) \\
+			&= P \left(\epsilon_t > w_1 - \frac{d}{2} - \bar{w} - \rho w_j   \right) \\
+			&= 1-F \left(  w_1 - \frac{d}{2} - \bar{w} - \rho w_j   \right) \\  \\
+\pi_{jk} &= P \left( w_k - \frac{d}{2} < \bar{w} + \rho w_j + \epsilon_t < w_1 + \frac{d}{2} \right) \\
+			&= F \left( w_k + \frac{d}{2} - \bar{w} - \rho w_j \right)  -  F \left( w_k - \frac{d}{2} - \bar{w} - \rho w_j \right)\\
+\end{align*}
+
+The income process will look like:
+\begin{figure}[h!]
+  \centering
+        \includegraphics[width=0.5\textwidth]{Income_process_discretized}
+  \end{figure}
+
+While the state vectors and the transition probabilities matrices are: (please see the code and the printout at the end).
+
+Grid: \\
+\begin{tabular}{  | c | c| c| c |c |c |c |c |c |c |}
+   -3.5304  & -2.8586 &  -2.1869  &  -1.5152 & -0.8435 &  -0.1718 &   0.5000 &   1.1717 & 1.8434 &  2.5151
+\end{tabular}
+\
+Income states \\
+\begin{tabular}{  | c | c| c| c |c |c |c |c |c |c |}
+    0.0293  &  0.0573 &   0.1123 &   0.2198  &  0.4302  &  0.8422  &  1.6487  &  3.2275   & 6.3181& 12.3684
+\end{tabular}
+
+Transition probabilities:\\
+\begin{tabular}{c c c c c c c c c c} \hline
+ 0.8416	&	0.1583	&	0.0001	&	0	&	0	&	0	&	0	&	0	&	0	&	0	\\
+0.0485	&	0.8121	&	0.1393	&	0.0001	&	0	&	0	&	0	&	0	&	0	&	0	\\
+0	&	0.0574	&	0.8207	&	0.1219	&	0	&	0	&	0	&	0	&	0	&	0	\\
+0	&	0	&	0.0675	&	0.8264	&	0.106	&	0	&	0	&	0	&	0	&	0	\\
+0	&	0	&	0	&	0.0789	&	0.8293	&	0.0917	&	0	&	0	&	0	&	0	\\
+0	&	0	&	0	&	0	&	0.0917	&	0.8293	&	0.0789	&	0	&	0	&	0	\\
+0	&	0	&	0	&	0	&	0	&	0.106	&	0.8264	&	0.0675	&	0	&	0	\\
+0	&	0	&	0	&	0	&	0	&	0	&	0.1219	&	0.8207	&	0.0574	&	0	\\
+0	&	0	&	0	&	0	&	0	&	0	&	0.0001	&	0.1393	&	0.8121	&	0.0485	\\
+0	&	0	&	0	&	0	&	0	&	0	&	0	&	0.0001	&	0.1583	&	0.8416	\\ \hline
+\end{tabular}
+
+
+\section{Computing decision rule $a'(a,y)$}
+\hfill
+
+The consumption savings problem discussed in class was:
+
+\begin{align*}
+V(a,y) & = \max_{c,a'} u(c) + \beta \sum_{y'} \pi(y'|y) V(a',y') \\
+\text{s.t. } & \ c+a = (1+r) a + y \\
+\text{and} & \ a' \ge -\phi \\ \\
+\text{where } & \ u(c) = \frac{c^{1-\gamma}}{1-\gamma}, \  \gamma=2, \ \beta=0.95, \ r=0.02
+\end{align*}
+
+I will use the endogenous grid method (see code attached).    
+
+The figures below show the simulated asset and consumption policies. Notice how steep the consumption function is in the vecinity of the borrowing constraint.
+
+\begin{figure}[h!]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.99\linewidth]{Simulated_assets}
+ \end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.99\linewidth]{Simulated_consumption}
+ \end{minipage}
+\end{figure}
+
+
+\section{Standard deviation of consumption across different risk-aversion levels}
+\hfill
+
+The table below shows the standard deviation when using:
+
+\begin{itemize}[noitemsep]
+\item Equally spaced grid for assets
+\item More weight on points near the borrowing constraint
+\item Logarithmic spaced grid for assets
+\end{itemize}
+
+\begin{tabular}{ l | l | l | l }
+  Std $\rightarrow $ & Equally-spaced grid & More weight on points near $\phi$ & Logarithmic-spaced grid \\ \hline
+$\gamma=2$ 	& $1.59$ 		& $0.94$ 		& $0.82$ \\
+$\gamma=5$  	& $1.28$ 		& $0.55$ 		& $0.49$ \\
+ $\gamma=10$ 	& $0.99$ 		& $0.35$ 		& $0.31$ \\ \hline
+\end{tabular}
+
+Notice that with higher levels of risk-aversion, the standard deviation of consumption decreases. This is in line with what we can expect. More risk-averse agents are going to insure themselves more and smooth consumption more. The less risk-averse agents are more willing to have a higher volatility of consumption, but the very risk-averse agents will smooth their consumption a lot. 
+
+ 
+
+
+\section{Saving-income ratio as uncertainty increases}
+\hfill
+
+\begin{tabular}{ c  | c | c | c   } \hline
+Variance of shock  & $\sigma_{\epsilon}^2=0.00$  & $\sigma_{\epsilon}^2 = 0.06$ & $\sigma_{\epsilon}^2 = 0.12$  \\  
+Saving-to-income ratio & $0.0000$ &   $0.8381$ &  $0.9146$ \\ \hline
+\end{tabular}
+
+When income is not stochastic (variance is zero), there are no savings and the savings to income ratio will be 0. There are no savings, because by consuming the entire income the agents perfectly smooth consumption and achieve the highest possible utility. On the other hand, the higher the variance of future income is, then the higher the saving-to-income ratio is. This is because of prudence. Agents will ensure against the more uncertain cases by saving more.
+
+(see code and printout of output)
+
+\begin{figure}[h!]
+  \centering
+        \includegraphics[width=0.5\textwidth]{Savings_to_income}
+  \end{figure}
+
+
+
+\clearpage
+\section{Consumption and Savings when the natural borrowing limit is different}
+\hfill
+
+In this section I  solved the model again but imposed the natural borrowing limit as  
+$\phi = -y_{min}/r$. Comparing the model with an ad-hoc no-borrowing constraint and the model with a natural borrowing constraint we notice that:
+
+\begin{tabular}{ c| c  }
+& Average consumption \\ \hline
+$\phi = 0$ & $1.91$ \\ 
+$\phi = -y_{min}/r$ & $1.41$ \\  \hline
+\end{tabular}
+
+Notice two things:
+\begin{enumerate}[noitemsep]
+\item When no borrowing is allowed, the probability to hit the no-borrowing constraint is higher and therefore agents will be more prudent and save more. 
+\item Because agents save more, they will also have a higher consumption in the case when they are not allowed to borrow. 
+\end{enumerate}
+
+\begin{figure}[h!]
+  \centering
+        \includegraphics[width=0.5\textwidth]{Consumption}
+  \end{figure}
+
+
+\section{Insurance coefficient when the natural borrowing limit is different}
+\hfill
+
+Now define an insurance coefficient as the fraction of the shock $\epsilon_t$ that does not translate into consumption growth:
+\begin{align*}
+\psi = 1- \frac{cov(\Delta ln (c_t),\epsilon_t)}{var(\epsilon_t)}
+\end{align*}
+
+I solved the model again, first imposing the no-borrowing constraint and then the natural borrowing limit as  $\phi = -y_{min}/r$. Comparing the model with an ad-hoc no-borrowing constraint and the model with a natural borrowing constraint  notice that:
+
+\begin{tabular}{ c| c  }
+   & Insurance coefficient $\psi$ \\ \hline
+$\phi = 0$ & $0.5442$ \\ 
+$\phi = -y_{min}/r$ & $0.5736$ \\  \hline
+\end{tabular}
+
+Based on the values of $\psi$, when we relax the borrowing constraint the insurance coefficient increases (after doing this exercise for several values of $\psi$ in between 0 and the natural borrowing limit, I realize that it increases in a convex way).
+
+Notice that the model where the borrowing limit is looser (i.e. the natural borrowing limit) displays more consumption insurance. This result seems strange initially, but the possible explanation could me that with a looser borrowing constraint a bigger fraction of the shock translates into the actual consumption growth, as opposed to saving. This makes sense as there will be a smaller precautionary motive, when  the agents have the option to borrow.
+
+\section{Ergodic distribution of assets in this economy}
+\hfill
+
+Now we are trying to simulate the distribution of assets/consumption directly. 
+
+This part isn't working yet.
+
+\clearpage
+\includepdf[pages=-]{command_window.pdf} 
+
+\clearpage
+\includepdf[pages=1-7]{shell_Roxana.pdf} 
+
+\clearpage
+\includepdf[pages=-]{functions.pdf}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
