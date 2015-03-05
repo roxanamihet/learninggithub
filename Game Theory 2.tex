@@ -1,0 +1,308 @@
+\documentclass[letter,11pt]{article} 
+\usepackage{graphicx,url,cite,amsmath,amsthm,amssymb,amsfonts,color}
+\usepackage{sectsty,bm}
+
+\usepackage[left=2.7cm, right=2.7cm, top=2.2cm, bottom=2.2cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+\def\amsbb{\use@mathgroup \M@U \symAMSb}
+\makeatother
+
+\usepackage{bbold}
+\usepackage{epstopdf}
+
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{etoolbox}
+\usepackage{lipsum}% just to generate text for the example
+\BeforeBeginEnvironment{equation}{\begin{singlespace}}
+\AfterEndEnvironment{equation}{\end{singlespace}\noindent\ignorespaces}
+\BeforeBeginEnvironment{align}{\begin{singlespace}}
+\AfterEndEnvironment{align}{\end{singlespace}\noindent\ignorespaces}
+
+\usepackage[linktocpage=true, colorlinks=true]{hyperref}
+\usepackage{comment}
+\usepackage{enumitem}
+
+\usepackage{titlesec} 
+%\titlespacing\subsubsection{0pt}{1.0ex plus -1ex minus -.2ex}{-\parskip}
+
+\usepackage{lscape}
+
+\newcommand{\rmd}{{\rm d}}
+\newcommand{\cD}{{\mathcal D}}
+\newcommand{\RR}{{\mathbb{R}}}
+\newcommand{\NN}{{\mathbb{N}}}
+\newcommand{\ZZ}{{\mathbb{Z}}}
+\newcommand{\bE}{{\mathbb{E}}}
+\newcommand{\PP}{{\mathbb{P}}}
+\newcommand{\cF}{{\mathcal F}}
+\newcommand{\bx}{{\bold x}}
+\newcommand{\by}{{\bold y}}
+\newcommand{\bW}{{\mathbf{W}}}
+\newcommand{\bFF}{{\bold f}}
+\newcommand{\ba}{{ a}}
+\newcommand{\br}{{\bold r}}
+\newcommand{\bp}{{\bold p}}
+\newcommand{\bv}{{\bold v}}
+\newcommand{\tr}{{\text{tr}}}
+\newcommand{\txi}{{\tilde{\bm \xi}}}
+\newcommand{\hd}{\hat{\rmd}}
+\newcommand{\bu}{{\bold u}}
+
+\DeclareSymbolFont{bbold}{U}{bbold}{m}{n}
+\DeclareSymbolFontAlphabet{\mathbbold}{bbold}
+
+\allowdisplaybreaks
+
+\usepackage{indentfirst}
+\providecommand{\keywords}[1]{\textbf{Keywords---} #1}
+\providecommand{\jel}[1]{\textbf{JEL Classification---} #1}
+
+\usepackage{caption}
+
+%\usepackage{epigraph}
+% \epigraphsize{\small}% Default
+%\setlength\epigraphwidth{8cm}
+%\setlength\epigraphrule{0pt}
+
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+\makeatother
+\newcommand{\zerodisplayskips}{%
+  \setlength{\abovedisplayskip}{0pt}
+  %\setlength{\belowdisplayskip}{0pt}
+  \setlength{\abovedisplayshortskip}{0pt}
+  %\setlength{\belowdisplayshortskip}{0pt}
+}
+\appto{\normalsize}{\zerodisplayskips}
+\appto{\small}{\zerodisplayskips}
+\appto{\footnotesize}{\zerodisplayskips}	
+
+\usepackage{titlesec}
+
+\titleformat{\section}[runin]
+  {\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}[runin]
+  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+\usepackage{parskip}
+
+\begin{document} 
+\oddsidemargin 0.2in \topmargin -.95in 
+\title{Problem Set 2. Microeconomics II - Game Theory} 
+\date{\today}
+\author{Roxana Mihet}
+\maketitle
+
+\section{Linear Cournot Model Modified}
+\hfill
+
+The price is: $p=a-bQ$\\
+Marginal cost is: $c q_i$
+
+a) To begin with, it is convenient to define the opposing quantities $Q_{-i}$ as $Q_{-i} = \sum_{j \neq i} q_j$ as the total quantity produced by other firms opposing firm $i$. 
+
+The problem of an agent is to:
+\begin{align}
+\max \Pi_i = \max_{q_i} p q_i - \frac{1}{2} c q_i^2 = \max (a-bQ - \frac{1}{2} c q_i) q_i
+\end{align}
+
+Notice that the formulation above gives us a marginal cost of $c q_i$ as the problem wants. Let's calculate the best response of firm $i$ to quantities of other firms. The FOC is a necessary and sufficient condition for a global maximum because $\Pi_i $ is strictly concave and smoothly differentiable in $q_i$. The first order gives:
+\begin{align}
+& a-bQ_{-i} - 2b q_i - c q_i = 0 \\
+& q_i = \frac{a-bQ_{-i} }{2b + c}  \\
+& \boxed{q_i = \frac{a-bQ}{2b + c}}
+\end{align}
+
+This gives the best response of firm $i$ to other firms. This means that if all firms' first order conditions are satisfied, we have a pure strategy Nash equilibrium and all firms choose the same quantity. Only pure strategies can exist because we obtained $q_i$ as the best response by solving for a global maximum. The profit function $\Pi_i$ is strictly concave, and the firm cannot do better than $q_i$. Thus, mixing with any other strategy or mixing any other two strategies would make the firm worse off. Thus, there are only pure Nash equilibria in this game.
+
+b) We obtained a best response and a Nash equilibria with $ q_i = \frac{a-bQ}{2b + c}$, which is independent of one firm's actions. The best response is the same for any $i$. Since at a Nash Equilibrium, all firms' first order conditions are satisfied, then all firms must be choosing the same quantities and the equilibrium will be symmetric: $q_i = q^{\star}$, for all $i$. 
+
+Of course this means that $Q=n q^{\star}$ and the first order condition above reduces to:
+\begin{align*}
+& a-bQ_{-i} - 2b q_i = c q_i \mid +bq_i \\
+& a-bQ  - 2b q^{\star} = c q^{\star}  +bq^{\star}\\
+& a-b n q^{\star} - 3b q^{\star} = c q^{\star}  \\
+& \boxed{ q^{\star} = \frac{a}{c+b(3+n)}}
+\end{align*}
+
+c) The best reply function in a standard model with constant marginal cost can be calculated as:
+\begin{align*}
+& \max \Pi_i = \max_{q_i} p q_i -  c q_i = \max (a-b Q_{-i} - b q_i -  c  ) q_i \\
+& [q_i:] \ a-b Q_{-i} - 2b q_i = c \mid +q_i \\
+& a-b Q  - 2b q_i = c  +q_i \\
+& a-b Q  = c  +q_i(1+2b) \\
+& \boxed{ q_i = \frac{a - bQ - c}{(1+2b)}}
+\end{align*}
+Since the modified model has an increasing marginal cost, the best response in the standard model is higher than the best response in the modified problem.
+
+d) In a Nash Equilibrium, all firms produce the same. This quantity was calculated at part b) and it is: $ q^{\star} = \frac{a}{c+b(3+n)}$. 
+
+As the number of firms increases, each firm produces less and less, so that in the limit each form produces nothing. As $n $ increases, total output  $Q = n q^{\star} =   \frac{n a}{c+b(3+n)}$ increases as well (the derivative of $Q$ w.r.t. $n$ is $\frac{ac + 3ab}{(c+b(3+n))^2}$, converging to $\frac{a}{b}$. Each firm's profits will decrease to $0$ as n grows large. These comparative statics make sense: as the market becomes more and more competitive, it becomes less profitable for firms to enter the market because their profits become smaller, and they each start producing less. 
+
+\clearpage
+\section{Ambulance Paradox}
+\hfill
+
+a) If $N=2$, the normal form of the game is:
+
+
+\begin{center}
+  \begin{tabular}{ | l | c | r |}
+    \hline
+     & C & N \\ \hline
+    C & (1,1) & (\textbf{1},\textbf{2}) \\ \hline
+   N & (\textbf{2},\textbf{1}) & (0,0) \\
+    \hline
+  \end{tabular}
+\end{center}
+There are obviously no pure symmetric strategies, but there are asymmetric equilibria in pure strategies. The asymmetric Nash equilibria of this game in pure strategies are: $\{(N,C) , (C,N) \}$.
+
+ We can also find the equilibrium in mixed strategies. Assume that player 1 randomizes C and N with probability $p$ and $1-p$. And assume that player 2 randomizes C and N with probability $q$ and $1-q$. Agent 1 will be indifferent between C and N when 
+\begin{align*}
+\pi(C) &= \pi(N) \\
+1q + 1(1-q) &= 2q + 0(1-q) \\
+1 = 2q \ &\Rightarrow \ q =\frac{1}{2} \\
+ \text{Symmetrically :}  & \ p = \frac{1}{2}
+\end{align*}
+Thus, we get a symmetric equilibrium in mixed strategies when $p = q= \frac{1}{2}$
+
+
+b) As $N$ increases, things will be bad for the lady. Everybody will have an incentive not to call and wait for the other neighbours to call. In the end, it might happen that nobody calls and the old lady dies. This is called the `someone else will help them conondrum'. This is a simultaneous game whose extensive form looks like below (in the case when $N=3$): Notice that at the last stage if the last person calls, he will get for sure 1 util. If he doesn't call, in all cases but one (when nobody calls) he will get 2 utils. Thus it is much more probable for the last agent not to call, waiting for somebody else to call. By backward induction, we can prove that the chances of the old lady to be rescued fall as there are more and more people living on the street waiting for others to call.
+\begin{figure}[htpt]
+     \begin{center}
+\includegraphics[width=0.4\textwidth]{tree}
+\end{center}
+     \end{figure} 
+To prove this formally, as $N$ increases, let's opt for the same strategy as before. Any of the agents must be indifferent between C and N for them to play a mixed strategy and we can find what the symmetric mixed equilibrium is in this case.
+\begin{align*}
+\pi(C) & = \pi(N) \\
+1 &= 2[1-(1-p)^{n-1}] \\
+\frac{1}{2} & =1-(1-p)^{n-1} \\
+\frac{1}{2} & = (1-p)^{n-1} \\
+\left(\frac{1}{2}\right)^{\frac{1}{n-1}} & = (1-p) \\
+\Rightarrow  & \boxed{p = 1- \left(\frac{1}{2}\right)^{\frac{1}{n-1}} }
+\end{align*}
+The probability of the old lady of getting rescued is thus:
+\begin{align*}
+Pr(\text{rescued}) &= 1-Pr(\text{not rescued}) \\
+& = 1- (1-p)^n \\
+& = 1 - \left\{ 1- \left[   1- \left(\frac{1}{2}\right)^{\frac{1}{n-1}}   \right] \right\}^n \\
+& = 1 - \left[\frac{1}{2} \right] ^{\frac{n}{n-1}} \ \rightarrow \frac{1}{2}
+\end{align*}
+
+Her probability of being rescued is decreasing to 50\% as the number of people living on the street increases. This is the paradox of this problem. \\
+
+c) Now, the ambulance will only come if there are at least two other people calling... 
+
+i) First, we will consider the case when $n=3$. The indifference condition in this case is: \\
+If you call, you make a payment of 1 if at least one other person calls, or you lose 1 if nobody calls...
+If you don't call, you make a payment of 2 if the other two people call, or 0 if nobody calls.
+\begin{align*}
+\pi(C) & = \pi(N) \\
+(1) [1-(1-p)^2] + (-1)(1-p)^2 & = 2 p^2 \\
+\rightarrow \ \boxed{p = \frac{1}{2}}
+\end{align*}
+
+This means that the ambulance arrives with probability 50\%. 
+
+ii) Now we want to consider the $n$ person case which requires that two different houses call the ambulance. The indifference condition is:
+\begin{align*}
+\pi(C) &= (1) [1-(1-p)^{n-1}] + (-1)(1-p)^{n-1} \\
+\pi(N) &= 2 \left\{ 1- [C_{1}^{n-1} p (1-p)^{n-2} + (1-p)^{n-1} ]  \right\} \\
+& \text{Setting them equal and after some algebra gives: } \\
+0 &= 2(n-1)[p(1-p)^{n-2}] - 1 
+\end{align*}
+This has no solution in the reals. 
+\begin{align*}
+\text{Take FOC with respect to p of: } \ & 2(n-1)[p(1-p)^{n-2}] - 1 \\
+& 2(n-1)(1-p)^{n-2} - 2(n-1)(n-2)p(1-p)^{n-3} = 0 \\
+& 2(n-1)(1-p)^{n-3}[(1-p) -(n-2)p] =0 \\
+& 1-p =(n-2) p \\
+& \boxed{p=\frac{1}{n-1} \rightarrow_{n\rightarrow \infty} 0} \\
+\text{Plugging back the p we get: } & \\
+& 2(n-1)[p(1-p)^{n-2}] - 1 = 2 \left[\frac{n-2}{n-1} \right]^{n-2} - 1 \\
+\text{which has no roots in } [0,1]
+\end{align*}
+This means that there does not exist any mixed strategy that is a Nash Equilibrium. There will not be any NE in which all agents decide to symmetrically call. The old lady will die.
+
+\section{Roll-call Voting and the Condorcet Cycle}
+\hfill
+
+We have a roll-call vote with P1, P2 and P3 and three alternatives A, B, and C. P1 casts a vote for some alternative, then P2 votes observing P1's vote, and then P3 votes after seeing the votes of P1 and P2. An alternative wins if it receives two or more votes. If there is a tie, the alternative preferred by Player 1 wins. Assume no player is indifferent over any two strategies.
+
+a) This  is a finite game of perfect information, so it can be solved by backward induction (the SPE of the game will coincide with the backward induction solution). I think that the assumptions we make on how P1, P2 and P3 rank the three alternatives will determine the outcome of the game.
+
+We know that at every information set before the terminal node (at P3s information set), he can choose A, B or C. There are three cases for what history has happened when it reaches him:
+\begin{enumerate}
+\item Both P1 and P2 chose the same alternative. Then P3 is indifferent between his choices, and whatever he does won't matter anyway because the decision had already been made for him.
+\item P1 and P2 have made different choices, one of which is P3's preferred alternative. Then P3 chooses his preferred alternative and that is the outcome.
+\item P1 and P2 have made different choices, neither of which is P3s favorite. Then P3 chooses his second ranked option and the outcome will be this second ranked alternative.
+\end{enumerate}
+
+Player 2 is going to realize what options P3 has. Then there are three possible strategies that P1 could have chosen:
+\begin{enumerate}
+\item P1 chooses P2s preferred alternative if it is also P1s first or second preferred alternative. Then it doesn't matter what player 3 does.
+\item P1 chooses P2's second favorite alternative. Then P2 will examine P3's payoffs and if P3 prefers P2s favorite alternative to P2s second favorite alternative, then P2 will pick his favorite alternative and P3 will pick it as well. If P3 does not prefer P2s favorite alternative to his second favorite, then P2 will pick his second favorite alternative and that will be the group's decision.
+\item P1 chooses P2's least preferred alternative. If P3 prefers P2's least favorite alternative, then regardless of P2, that will be the group's choice. If not, then P2 will do the same analysis as above to pick between his favorite and second best, to pick and entice P3 to vote with him.
+\end{enumerate}
+
+Player 1 knows that all of this is going to happen. Thus, if someone else has the same highest preference as he does, then he will pick that one. If not, and someone prefers his second favorite alternative to all other choices, then he will pick that one. If both P2 and P3 prefer his least favorite alternative to all others, then it doesn't matter what he picks because the other two will outvote him. \\
+
+b) For a Condorcet cycle, there are two possibilities. Without loss of generality we can express players' preferences as below:
+\begin{center}
+  \begin{tabular}{   c   c   c  c  }
+    \hline
+     & 1 & 2 & 3 \\ \hline
+    best & A & B & C \\ 
+   middle & B & C & A \\ 
+   worst & C & A & B \\ \hline
+  \end{tabular}
+\end{center}
+The only NE here is $(B,B,-)$.
+\begin{center}
+  \begin{tabular}{   c   c   c  c  }
+    \hline
+     & 1 & 2 & 3 \\ \hline
+    best & A & C & B \\ 
+   middle & B & A & C \\ 
+   worst & C & B & A \\ \hline
+  \end{tabular}
+\end{center}
+The only NE here is $(B,-,B)$
+
+i) Consider the first case. If P1 chooses A, P2 will oppose it. P2 will choose C, and the P3 will choose C and that will be the outcome - which proves worst for P1. Therefore P1 knows this and he will not choose A in the first place. This means P1 chooses B. Then P2 chooses B. No matter what P3 chooses, the NE will be $(B,B,-)$ and noone will want to deviate from this.
+
+Consider the second case. If P1 chooses A, then P2 will oppose him again and choose C. Then P3 would choose C, which is worst for P1. So P1 will not choose A. Assume P1 chooses B. Then P2 will choose C, and P3 will choose B. The NE will be $(B,-,B)$ and noone will be able to deviate from this. 
+
+In any case, with a Condorcet cycle, P1 always gets his second-best because that is his best strategy and eventually the NE of the game in pure strategies. 
+
+
+ii) We established that B will be chosen in a SPE. Since this is P1s second-best alternative and there is a Condorcet cycle, it must be the case that it is either P2s or P3's lowest ranked alternative, depending on whether the preferences are as in the first or second case. Thus, either of P2 and P3 can get his least preferred alternative. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
